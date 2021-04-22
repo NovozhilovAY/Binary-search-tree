@@ -77,11 +77,6 @@ inline void TreeNode<T>::AddNode(TreeNode* root, T val)
 template<class T>
 inline void TreeNode<T>::DelSubTree(TreeNode* subtree)
 {
-	if (subtree->left == nullptr && subtree->right == nullptr)
-	{
-		delete subtree;
-		return;
-	}
 	if (subtree->left != nullptr)
 	{
 		DelSubTree(subtree->left);
@@ -90,4 +85,5 @@ inline void TreeNode<T>::DelSubTree(TreeNode* subtree)
 	{
 		DelSubTree(subtree->right);
 	}
+	delete subtree;
 }

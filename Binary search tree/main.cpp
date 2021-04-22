@@ -14,5 +14,6 @@ int main()
 	tree->AddNode(tree, "sas");
 	tree->AddNode(tree, "sas");
 	tree->PrintTree(tree);
+	tree->DelSubTree(tree);
 	return 0;
 }
