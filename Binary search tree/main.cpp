@@ -10,10 +10,14 @@ int main()
 	{
 		std::cout << "\"" << v[i] << "\"" << "\n";
 	}
-	TreeNode<std::string>* tree = new TreeNode< std::string >("ses");
-	tree->AddNode(tree, "sas");
-	tree->AddNode(tree, "sas");
-	tree->PrintTree(tree);
+	TreeNode<std::string>* tree = new TreeNode< std::string >("5");
+	tree->AddNode(tree, "6");
+	tree->AddNode(tree, "7");
+	tree->AddNode(tree, "4");
+	tree->AddNode(tree, "2");
+	tree->AddNode(tree, "3");
+	tree->Max(tree);
+	tree->Min(tree);
 	tree->DelSubTree(tree);
 	return 0;
 }

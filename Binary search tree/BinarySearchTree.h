@@ -87,3 +87,23 @@ inline void TreeNode<T>::DelSubTree(TreeNode* subtree)
 	}
 	delete subtree;
 }
+
+template<class T>
+inline TreeNode<T>* TreeNode<T>::Min(TreeNode* root)
+{
+	if (root->left != nullptr)
+	{
+		return Min(root->left);
+	}
+	return root;
+}
+
+template<class T>
+inline TreeNode<T>* TreeNode<T>::Max(TreeNode* root)
+{
+	if (root->right != nullptr)
+	{
+		return Max(root->right);
+	}
+	return root;
+}

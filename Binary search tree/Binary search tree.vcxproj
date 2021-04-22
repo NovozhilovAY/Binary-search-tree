@@ -144,7 +144,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="BinarySearchTree.cpp" />
     <ClCompile Include="StringToVectorOfWordsConvertor.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
