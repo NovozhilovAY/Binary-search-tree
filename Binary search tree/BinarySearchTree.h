@@ -15,14 +15,21 @@ public:
 	void DelSubTree(TreeNode* subtree);
 	TreeNode* Min(TreeNode* root);
 	TreeNode* Max(TreeNode* root);
-
 };
 
 template <class T>
 class BinarySearchTree
 {
-	TreeNode<T>* root;
+	TreeNode<T>* root = nullptr;
+public:
+	BinarySearchTree(){}
+	BinarySearchTree(const T& val);
+	BinarySearchTree(const std::vector<T>& vect);
+	~BinarySearchTree();
 
+	void Add(const T& val);
+	void Print();
+	
 };
 
 template<class T>
@@ -42,8 +49,9 @@ inline void TreeNode<T>::PrintTree(TreeNode* root)
 		return;
 	}
 	PrintTree(root->left);
-	PrintTree(root->right);
 	std::cout << root->value << " - " << root->count << "\n";
+	PrintTree(root->right);
+	
 }
 
 template<class T>
@@ -77,6 +85,10 @@ inline void TreeNode<T>::AddNode(TreeNode* root, T val)
 template<class T>
 inline void TreeNode<T>::DelSubTree(TreeNode* subtree)
 {
+	if (!subtree)
+	{
+		return;
+	}
 	if (subtree->left != nullptr)
 	{
 		DelSubTree(subtree->left);
@@ -106,4 +118,42 @@ inline TreeNode<T>* TreeNode<T>::Max(TreeNode* root)
 		return Max(root->right);
 	}
 	return root;
+}
+
+template<class T>
+inline BinarySearchTree<T>::BinarySearchTree(const T& val)
+{
+	Add(val);
+}
+
+template<class T>
+inline BinarySearchTree<T>::BinarySearchTree(const std::vector<T>& vect)
+{
+	for (auto i : vect)
+	{
+		Add(i);
+	}
+}
+
+template<class T>
+inline BinarySearchTree<T>::~BinarySearchTree()
+{
+	root->DelSubTree(root);
+}
+
+template<class T>
+inline void BinarySearchTree<T>::Add(const T& val)
+{
+	if (!root)
+	{
+		root = new TreeNode<T>(val);
+		return;
+	}
+	root->AddNode(root, val);
+}
+
+template<class T>
+inline void BinarySearchTree<T>::Print()
+{
+	root->PrintTree(root);
 }
