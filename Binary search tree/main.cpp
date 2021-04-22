@@ -17,6 +17,8 @@ int main()
 	b.Add("1");
 	b.Add("0");
 	b.Add("2");
+	b.find("a");
+	b.find("0");
 	b.Print();
 	return 0;
 }
