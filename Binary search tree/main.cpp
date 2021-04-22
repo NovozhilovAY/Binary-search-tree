@@ -1,24 +1,22 @@
-#include<iostream>
 #include"StringToVectorOfWordsConvertor.h"
 #include"BinarySearchTree.h"
+#include <fstream>
 int main()
 {
 	setlocale(LC_ALL, "Russian");
+
+	BinarySearchTree<std::string> bt;
 	StringToVectorOfWordsConvertor conv;
-	std::vector<std::string> v = conv.convert("   !+ Õ¿¡Œ–, —ÀŒ¬. —Œ «Õ¿ ¿Ã»=œ–≈œ»Õ¿Õ»ﬂ » œ–Œ¡≈À¿Ã» -—¿— :fsdf DGSG gfsag   df/ ffd fdfwf ‡,a");
-	for (int i = 0; i < v.size(); i++)
-	{
-		std::cout << "\"" << v[i] << "\"" << "\n";
-	}
+
+	std::string tmp;
+	std::ifstream file("input.txt");
 	
-	BinarySearchTree<std::string> b;
-	b.Add("3");
-	b.Add("4");
-	b.Add("1");
-	b.Add("0");
-	b.Add("2");
-	b.find("a");
-	b.find("0");
-	b.Print();
+	while (getline(file, tmp))
+	{
+		std::vector<std::string> v = conv.convert(tmp);
+		bt.Add(v);
+	}
+	std::cout << "aÌÌ‡ - " << bt.find("‡ÌÌ‡")<<std::endl;
+	std::cout << "ÓÙËˆÂ - " << bt.find("ÓÙËˆÂ");
 	return 0;
 }
