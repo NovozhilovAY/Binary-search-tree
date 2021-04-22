@@ -29,6 +29,7 @@ public:
 	~BinarySearchTree();
 
 	void Add(const T& val);
+	void Add(const std::vector<T>& vect);
 	void Print();
 	int find(const T& val);
 };
@@ -173,6 +174,15 @@ inline void BinarySearchTree<T>::Add(const T& val)
 		return;
 	}
 	root->AddNode(root, val);
+}
+
+template<class T>
+inline void BinarySearchTree<T>::Add(const std::vector<T>& vect)
+{
+	for (auto i : vect)
+	{
+		Add(i);
+	}
 }
 
 template<class T>
