@@ -139,10 +139,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BinarySearchTree.h" />
     <ClInclude Include="StringToVectorOfWordsConvertor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="BinarySearchTree.cpp" />
     <ClCompile Include="StringToVectorOfWordsConvertor.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

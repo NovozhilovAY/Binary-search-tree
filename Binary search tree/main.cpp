@@ -1,6 +1,6 @@
 #include<iostream>
 #include"StringToVectorOfWordsConvertor.h"
-
+#include"BinarySearchTree.h"
 int main()
 {
 	setlocale(LC_ALL, "Russian");
@@ -10,6 +10,9 @@ int main()
 	{
 		std::cout << "\"" << v[i] << "\"" << "\n";
 	}
-	
+	TreeNode<std::string>* tree = new TreeNode< std::string >("ses");
+	tree->AddNode(tree, "sas");
+	tree->AddNode(tree, "sas");
+	tree->PrintTree(tree);
 	return 0;
 }

@@ -18,12 +18,18 @@
     <ClInclude Include="StringToVectorOfWordsConvertor.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="BinarySearchTree.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="StringToVectorOfWordsConvertor.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="BinarySearchTree.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
