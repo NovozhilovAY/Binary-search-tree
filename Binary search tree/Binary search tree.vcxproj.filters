@@ -18,6 +18,9 @@
     <ClInclude Include="StringToVectorOfWordsConvertor.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="BinarySearchTree.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="StringToVectorOfWordsConvertor.cpp">

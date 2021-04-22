@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BinarySearchTree.h" />
     <ClInclude Include="StringToVectorOfWordsConvertor.h" />
   </ItemGroup>
   <ItemGroup>
