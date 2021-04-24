@@ -16,6 +16,7 @@ public:
 	TreeNode* Min(TreeNode* root);
 	TreeNode* Max(TreeNode* root);
 	int find(TreeNode* root, const T& val);
+	bool IsBinTree(TreeNode* root);
 };
 
 template <class T>
@@ -142,6 +143,24 @@ inline int TreeNode<T>::find(TreeNode* root, const T& val)
 		return find(root->left, val);
 	}
 
+}
+
+template<class T>
+inline bool TreeNode<T>::IsBinTree(TreeNode* root)
+{
+	if (!root)
+	{
+		return true;
+	}
+	if (root->left != nullptr && root->left->value > root->value)
+	{
+		return false;
+	}
+	if (root->right != nullptr && root->right->value < root->value)
+	{
+		return false;
+	}
+	return IsBinTree(root->left) && IsBinTree(root->right);
 }
 
 template<class T>
