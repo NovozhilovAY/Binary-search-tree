@@ -12,6 +12,7 @@ private:
 	TreeNode* right = nullptr;
 public:
 	TreeNode(T val = T(), TreeNode* l = nullptr, TreeNode* r = nullptr);
+	T GetVal()const;
 	void PrintTree(TreeNode* root);
 	void AddVal(TreeNode* root, const T& val);
 	void DelSubTree(TreeNode* subtree);
@@ -55,6 +56,12 @@ inline TreeNode<T>::TreeNode(T val, TreeNode* l, TreeNode* r)
 	count = 1;
 	left = l;
 	right = r;
+}
+
+template<class T>
+inline T TreeNode<T>::GetVal() const
+{
+	return value;
 }
 
 template<class T>
