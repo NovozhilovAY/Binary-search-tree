@@ -18,6 +18,7 @@ public:
 	int find(TreeNode* root, const T& val);
 	bool IsBinTree(TreeNode* root);
 	void DelNode(TreeNode* root, const T& val);
+	
 };
 
 template <class T>
@@ -68,7 +69,7 @@ inline void TreeNode<T>::AddVal(TreeNode* root, const T& val)
 			root->right = new TreeNode(val);
 			return;
 		}
-		AddNode(root->right, val);
+		AddVal(root->right, val);
 	}
 	else if (root->value > val)
 	{
@@ -77,7 +78,7 @@ inline void TreeNode<T>::AddVal(TreeNode* root, const T& val)
 			root->left = new TreeNode(val);
 			return;
 		}
-		AddNode(root->left, val);
+		AddVal(root->left, val);
 	}
 	else
 	{

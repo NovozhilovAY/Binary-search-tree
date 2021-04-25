@@ -22,11 +22,11 @@ int main()
 	return 0;*/
 
 	TreeNode<std::string> tr("5");
-	tr.AddNode(&tr, "3");
-	tr.AddNode(&tr, "8");
-	tr.AddNode(&tr, "2");
-	tr.AddNode(&tr, "4");
-	tr.AddNode(&tr, "7");
-	tr.AddNode(&tr, "6");
+	tr.AddVal(&tr, "3");
+	tr.AddVal(&tr, "8");
+	tr.AddVal(&tr, "2");
+	tr.AddVal(&tr, "4");
+	tr.AddVal(&tr, "7");
+	tr.AddVal(&tr, "6");
 	std::cout << tr.IsBinTree(&tr);
 }
