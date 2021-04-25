@@ -1,4 +1,6 @@
 #pragma once
+template <class T>
+class BinarySearchTree;
 
 template <class T>
 class TreeNode
@@ -11,11 +13,19 @@ private:
 public:
 	TreeNode(T val = T(), TreeNode* l = nullptr, TreeNode* r = nullptr);
 	void PrintTree(TreeNode* root);
-	void AddNode(TreeNode* root, const T& val);
+	void AddVal(TreeNode* root, const T& val);
 	void DelSubTree(TreeNode* subtree);
 	TreeNode* Min(TreeNode* root);
 	TreeNode* Max(TreeNode* root);
 	int find(TreeNode* root, const T& val);
+	bool IsBinTree(TreeNode* root);
+	void DelNode(TreeNode* root, const T& val);
+
+	TreeNode<T>* findNode(TreeNode* root, const T& val);
+	TreeNode<T>* findParent(TreeNode* root, const TreeNode* child);
+	static void AddNode(TreeNode* root, TreeNode* node);
+
+	friend class BinarySearchTree<T>;
 };
 
 template <class T>
@@ -29,9 +39,13 @@ public:
 	~BinarySearchTree();
 
 	void Add(const T& val);
+	void Del(const T& val);
 	void Add(const std::vector<T>& vect);
 	void Print();
 	int find(const T& val);
+
+private:
+	void DelRoot();
 };
 
 template<class T>
@@ -57,7 +71,7 @@ inline void TreeNode<T>::PrintTree(TreeNode* root)
 }
 
 template<class T>
-inline void TreeNode<T>::AddNode(TreeNode* root, const T& val)
+inline void TreeNode<T>::AddVal(TreeNode* root, const T& val)
 {
 	if (root->value < val)
 	{
@@ -66,7 +80,7 @@ inline void TreeNode<T>::AddNode(TreeNode* root, const T& val)
 			root->right = new TreeNode(val);
 			return;
 		}
-		AddNode(root->right, val);
+		AddVal(root->right, val);
 	}
 	else if (root->value > val)
 	{
@@ -75,7 +89,7 @@ inline void TreeNode<T>::AddNode(TreeNode* root, const T& val)
 			root->left = new TreeNode(val);
 			return;
 		}
-		AddNode(root->left, val);
+		AddVal(root->left, val);
 	}
 	else
 	{
@@ -145,6 +159,179 @@ inline int TreeNode<T>::find(TreeNode* root, const T& val)
 }
 
 template<class T>
+inline void TreeNode<T>::AddNode(TreeNode* root, TreeNode* node)
+{
+	if (root->value < node->value)
+	{
+		if (root->right == nullptr)
+		{
+			root->right = node;
+			return;
+		}
+		AddNode(root->right, node);
+	}
+	else if (root->value > node->value)
+	{
+		if (root->left == nullptr)
+		{
+			root->left = node;
+			return;
+		}
+		AddNode(root->left, node);
+	}
+	else
+	{
+		root->count++;
+		return;
+	}
+}
+
+template<class T>
+inline bool TreeNode<T>::IsBinTree(TreeNode* root)
+{
+	if (!root)
+	{
+		return true;
+	}
+	if (root->left != nullptr && root->left->value > root->value)
+	{
+		return false;
+	}
+	if (root->right != nullptr && root->right->value < root->value)
+	{
+		return false;
+	}
+	return IsBinTree(root->left) && IsBinTree(root->right);
+}
+
+template<class T>
+inline void TreeNode<T>::DelNode(TreeNode* root, const T& val)
+{
+	enum side{LEFT,RIGHT};
+	if (!root)
+	{
+		return;
+	}
+	TreeNode* del_node = findNode(root, val);
+	if (!del_node)
+	{
+		return;
+	}
+	TreeNode* parent = findParent(root,del_node);
+	side del_side;
+	if (parent->left == del_node)
+	{
+		del_side = LEFT;
+	}
+	if (parent->right == del_node)
+	{
+		del_side = RIGHT;
+	}
+
+	if (del_node->left == nullptr && del_node->right == nullptr)
+	{
+		delete del_node;
+		switch (del_side)
+		{
+		case LEFT:
+			parent->left = nullptr;
+			break;
+		case RIGHT:
+			parent->right = nullptr;
+			break;
+		}
+		return;
+	}
+
+	if (del_node->left != nullptr && del_node->right == nullptr)
+	{
+		switch (del_side)
+		{
+		case LEFT:
+			parent->left = del_node->left;
+			break;
+		case RIGHT:
+			parent->right = del_node->left;
+			break;
+		}
+		delete del_node;
+		return;
+	}
+	if (del_node->left == nullptr && del_node->right != nullptr)
+	{
+		switch (del_side)
+		{
+		case LEFT:
+			parent->left = del_node->right;
+			break;
+		case RIGHT:
+			parent->right = del_node->right;
+			break;
+		}
+		delete del_node;
+		return;
+	}
+	if (del_node->left != nullptr && del_node->right != nullptr)
+	{
+		AddNode(del_node->right,del_node->left);
+		del_node->left = nullptr;
+		switch (del_side)
+		{
+		case LEFT:
+			parent->left = del_node->right;
+			break;
+		case RIGHT:
+			parent->right = del_node->right;
+			break;
+		}
+		delete del_node;
+		return;
+	}
+}
+
+template<class T>
+inline TreeNode<T>* TreeNode<T>::findNode(TreeNode* root, const T& val)
+{
+	if (root == nullptr)
+	{
+		return nullptr;
+	}
+	if (root->value == val)
+	{
+		return root;
+	}
+	if (root->value < val)
+	{
+		return findNode(root->right, val);
+	}
+	else
+	{
+		return findNode(root->left, val);
+	}
+}
+
+template<class T>
+inline TreeNode<T>* TreeNode<T>::findParent(TreeNode* root, const TreeNode* child)
+{
+	if (root == nullptr)
+	{
+		return nullptr;
+	}
+	if (root->left == child || root->right == child)
+	{
+		return root;
+	}
+	if (root->value < child->value)
+	{
+		return findParent(root->right, child);
+	}
+	else
+	{
+		return findParent(root->left, child);
+	}
+}
+
+template<class T>
 inline BinarySearchTree<T>::BinarySearchTree(const T& val)
 {
 	Add(val);
@@ -173,7 +360,20 @@ inline void BinarySearchTree<T>::Add(const T& val)
 		root = new TreeNode<T>(val);
 		return;
 	}
-	root->AddNode(root, val);
+	root->AddVal(root, val);
+}
+
+template<class T>
+inline void BinarySearchTree<T>::Del(const T& val)
+{
+	if (!root)
+		return;
+	if (val == root->GetVal())
+	{
+		DelRoot();
+		return;
+	}
+	root->DelNode(root, val);
 }
 
 template<class T>
@@ -195,4 +395,45 @@ template<class T>
 inline int BinarySearchTree<T>::find(const T& val)
 {
 	return root->find(root,val);
+}
+
+template<class T>
+inline void BinarySearchTree<T>::DelRoot()
+{
+	if (!root)
+		return;
+
+	if (root->left == nullptr && root->right == nullptr)
+	{
+		delete root;
+		root = nullptr;
+		return;
+	}
+
+	if (root->left != nullptr && root->right == nullptr)
+	{
+		TreeNode<T>* tmp = root->left;
+		delete root;
+		root = tmp;
+		return;
+	}
+	if (root->left == nullptr && root->right != nullptr)
+	{
+		TreeNode<T>* tmp = root->right;
+		delete root;
+		root = tmp;
+		return;
+	}
+	if (root->left != nullptr && root->right != nullptr)
+	{
+		TreeNode<T>::AddNode(root->right, root->left);
+		TreeNode<T>* tmp = root->right;
+		TreeNode<T>* tmp2 = root;
+		root = tmp;
+		tmp2->left = nullptr;
+		tmp2->right = nullptr;
+		delete tmp2;
+
+		return;
+	}
 }

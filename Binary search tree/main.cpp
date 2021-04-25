@@ -17,6 +17,7 @@ int main()
 		bt.Add(v);
 	}
 	std::cout << "aнна - " << bt.find("анна")<<std::endl;
-	std::cout << "офицер - " << bt.find("офицер");
+	std::cout << "офицер - " << bt.find("офицер")<<std::endl;
+	std::cout << "я - "<< bt.find("я");
 	return 0;
 }
