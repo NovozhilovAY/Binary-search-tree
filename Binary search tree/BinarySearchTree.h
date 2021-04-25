@@ -11,12 +11,13 @@ private:
 public:
 	TreeNode(T val = T(), TreeNode* l = nullptr, TreeNode* r = nullptr);
 	void PrintTree(TreeNode* root);
-	void AddNode(TreeNode* root, const T& val);
+	void AddVal(TreeNode* root, const T& val);
 	void DelSubTree(TreeNode* subtree);
 	TreeNode* Min(TreeNode* root);
 	TreeNode* Max(TreeNode* root);
 	int find(TreeNode* root, const T& val);
 	bool IsBinTree(TreeNode* root);
+	void DelNode(TreeNode* root, const T& val);
 };
 
 template <class T>
@@ -58,7 +59,7 @@ inline void TreeNode<T>::PrintTree(TreeNode* root)
 }
 
 template<class T>
-inline void TreeNode<T>::AddNode(TreeNode* root, const T& val)
+inline void TreeNode<T>::AddVal(TreeNode* root, const T& val)
 {
 	if (root->value < val)
 	{
@@ -164,6 +165,13 @@ inline bool TreeNode<T>::IsBinTree(TreeNode* root)
 }
 
 template<class T>
+inline void TreeNode<T>::DelNode(TreeNode* root, const T& val)
+{
+	
+
+}
+
+template<class T>
 inline BinarySearchTree<T>::BinarySearchTree(const T& val)
 {
 	Add(val);
@@ -192,7 +200,7 @@ inline void BinarySearchTree<T>::Add(const T& val)
 		root = new TreeNode<T>(val);
 		return;
 	}
-	root->AddNode(root, val);
+	root->AddVal(root, val);
 }
 
 template<class T>
